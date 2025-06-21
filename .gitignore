@@ -16,7 +16,7 @@ override.tf.json
 **/override.tf
 **/override.tf.json
 # Ignore .tfvars files
-*.tfvars
+#*.tfvars
 # Ignore .tfvars files in subdirectories
 **/*.tfvars
 # Ignore .tfvars.json files

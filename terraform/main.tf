@@ -18,11 +18,16 @@ module "lambda_iam" {
   project_name = var.project_name                # Use the project name from variables.tf
   table_arn    = module.dynamodb_table.table_arn # Pass the DynamoDB table ARN to the IAM module
   aws_region   = var.aws_region                  # Pass the AWS region variable
+  identity_pool_id = var.identity_pool_id        # Pass the required identity pool ID
+  aws_account_id   = var.aws_account_id          # Pass the required AWS account ID
 }
 # Reference the API Gateway from api_gateway.tf
 module "api_gateway" {
   source            = "./modules/api_gateway"                  # Path to the API Gateway module
   lambda_invoke_arn = module.lambda_function.lambda_invoke_arn # Pass the Lambda invoke ARN
+  lambda_arn        = module.lambda_function.lambda_function_arn # Pass the Lambda function ARN
+  user_pool_arn     = module.cognito.user_pool_arn             # Pass the Cognito User Pool ARN
+  project_name      = var.project_name                         # Pass the project name
 }
 # Reference the Lambda function from modules/lambda
 module "lambda_function" {
@@ -39,4 +44,9 @@ module "lambda_function" {
   lambda_function_arn = var.lambda_function_arn # Provide the Lambda function ARN
   lambda_function_name = var.lambda_function_name # Provide the Lambda function name
   lambda_function_environment_variables = var.lambda_function_environment_variables # Provide environment variables as a map
+}
+# New Cognito module
+module "cognito" {
+  source = "./modules/cognito" # Path to the new Cognito module
+  project_name = var.project_name # Use the project name
 }

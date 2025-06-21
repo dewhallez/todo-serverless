@@ -75,3 +75,17 @@ output "lambda_function_environment_variables_map_output" {
   description = "The environment variables for the Lambda function as a map."
   value       = module.lambda_function.lambda_function_environment_variables_map
 }
+output "cognito_user_pool_id" {
+  description = "The ID of the Cognito User Pool."
+  value       = module.cognito.user_pool_id
+}
+
+output "cognito_user_pool_client_id" {
+  description = "The ID of the Cognito User Pool Client."
+  value       = module.cognito.user_pool_client_id
+}
+
+output "cognito_identity_pool_id" {
+  description = "The ID of the Cognito Identity Pool."
+  value       = module.cognito.identity_pool_id
+}

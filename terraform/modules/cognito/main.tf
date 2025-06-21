@@ -10,7 +10,9 @@ resource "aws_cognito_user_pool" "user_pool" {
 
   # Policies for user pool
   password_policy {
-    minimum_length    = 8
+    minimum_length    = 12 # Minimum password length
+    # Password complexity requirements
+    # Set to true to require lowercase, numbers, uppercase, and symbols
     require_lowercase = true
     require_numbers   = true
     require_uppercase = true
@@ -49,16 +51,16 @@ resource "aws_cognito_user_pool_client" "user_pool_client" {
 #  }#
 
   # Optional: Enable token revocation
-  prevent_user_existence_errors = "ENABLED" # Helps to prevent user enumeration attacks
+ # prevent_user_existence_errors = "ENABLED" # Helps to prevent user enumeration attacks
 
   # Optional: Set the refresh token validity period
-  refresh_token_validity = 30 # Days
+ # refresh_token_validity = 30 # Days
 
   # Optional: Set the access token validity period
-  access_token_validity = 60 # Minutes
+ # access_token_validity = 60 # Minutes
 
   # Optional: Set the ID token validity period
-  id_token_validity = 60 # Minutes
+ # id_token_validity = 60 # Minutes
 
  # tags = {
  #   Environment = "production"

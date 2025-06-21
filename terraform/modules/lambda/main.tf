@@ -126,3 +126,56 @@ variable "lambda_function_environment_variables" {
     #TABLE_NAME = var.dynamodb_table_name
   } # Default to the DynamoDB table name
 
+variable "lambda_function_environment_variables_map" {
+  description = "Map of environment variables for the Lambda function"
+  type        = map(string)
+  default     = {} # Default to an empty map
+}
+output "lambda_function_arn_output" {
+  description = "The ARN of the Lambda function."
+  value       = aws_lambda_function.todo_function.arn
+}
+output "lambda_invoke_arn_output" {
+  description = "The ARN for invoking the Lambda function."
+  value       = aws_lambda_function.todo_function.invoke_arn
+}
+output "lambda_function_name_output" {
+  description = "The name of the Lambda function."
+  value       = aws_lambda_function.todo_function.function_name
+}
+output "lambda_function_memory_size_output" {
+  description = "The memory size allocated to the Lambda function in MB."
+  value       = aws_lambda_function.todo_function.memory_size
+}
+output "lambda_function_timeout_output" {
+  description = "The timeout for the Lambda function in seconds."
+  value       = aws_lambda_function.todo_function.timeout
+}
+output "lambda_zip_path_output" {
+  description = "The path to the Lambda function ZIP file."
+  value       = data.archive_file.lambda_zip.output_path
+}
+output "lambda_function_environment_variables_output" {
+  description = "The environment variables for the Lambda function."
+  value       = aws_lambda_function.todo_function.environment[0].variables
+}
+output "lambda_function_environment_variables_map_output" {
+  description = "Map of environment variables for the Lambda function."
+  value       = var.lambda_function_environment_variables_map
+}
+output "lambda_function_handler_output" {
+  description = "The handler function for the Lambda function."
+  value       = var.lambda_handler
+}
+output "lambda_function_runtime_output" {
+  description = "The runtime environment for the Lambda function."
+  value       = var.lambda_runtime
+}
+output "lambda_function_invoke_arn_output" {
+  description = "The ARN for invoking the Lambda function."
+  value       = aws_lambda_function.todo_function.invoke_arn
+}
+output "lambda_function_zip_path_output" {
+  description = "The path to the Lambda function ZIP file."
+  value       = data.archive_file.lambda_zip.output_path
+}

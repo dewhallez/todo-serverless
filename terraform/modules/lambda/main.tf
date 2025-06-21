@@ -2,8 +2,8 @@
 
 data "archive_file" "lambda_zip" {
   type        = "zip"
-  source_dir  = "../../lambda_app/" # This path assumes lambda_function.py and requirements.txt are in the parent directory of this module
-  output_path = "lambda_package.zip" # Output ZIP file name
+  source_dir  = "../../lambda_app/"                                                 # This path assumes lambda_function.py and requirements.txt are in the parent directory of this module
+  output_path = "lambda_package.zip"                                                # Output ZIP file name
   excludes    = ["terraform", ".terraform", "*.tf", "*.tfvars", "*.zip", "modules"] # Exclude Terraform files
 }
 
@@ -23,9 +23,9 @@ resource "aws_lambda_function" "todo_function" {
     }
   }
 
-# depends_on = [
-#  aws_cloudwatch_log_group.todo_lambda_log_group # Ensure log group exists before Lambda
-# ]
+  # depends_on = [
+  #  aws_cloudwatch_log_group.todo_lambda_log_group # Ensure log group exists before Lambda
+  # ]
 
 }
 

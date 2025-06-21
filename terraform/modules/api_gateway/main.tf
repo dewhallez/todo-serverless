@@ -19,11 +19,11 @@ resource "aws_api_gateway_resource" "todo_id_resource" {
 
 # Cognito User Pool Authorizer
 resource "aws_api_gateway_authorizer" "cognito_authorizer" {
-  name                   = "${var.project_name}-cognito-authorizer"
-  type                   = "COGNITO_USER_POOLS"
-  rest_api_id            = aws_api_gateway_rest_api.todo_api.id
-  provider_arns          = [var.user_pool_arn] # Reference the User Pool ARN
-  identity_source        = "method.request.header.Authorization" # Token is in Authorization header
+  name            = "${var.project_name}-cognito-authorizer"
+  type            = "COGNITO_USER_POOLS"
+  rest_api_id     = aws_api_gateway_rest_api.todo_api.id
+  provider_arns   = [var.user_pool_arn]                   # Reference the User Pool ARN
+  identity_source = "method.request.header.Authorization" # Token is in Authorization header
 }
 
 
@@ -74,10 +74,10 @@ resource "aws_api_gateway_method" "options_todos_method" {
 }
 
 resource "aws_api_gateway_integration" "options_todos_integration" {
-  rest_api_id             = aws_api_gateway_rest_api.todo_api.id
-  resource_id             = aws_api_gateway_resource.todos_resource.id
-  http_method             = aws_api_gateway_method.options_todos_method.http_method
-  type                    = "MOCK" # Use MOCK integration for OPTIONS
+  rest_api_id = aws_api_gateway_rest_api.todo_api.id
+  resource_id = aws_api_gateway_resource.todos_resource.id
+  http_method = aws_api_gateway_method.options_todos_method.http_method
+  type        = "MOCK" # Use MOCK integration for OPTIONS
   request_templates = {
     "application/json" = "{}"
   }
@@ -200,10 +200,10 @@ resource "aws_api_gateway_method" "options_todo_id_method" {
 }
 
 resource "aws_api_gateway_integration" "options_todo_id_integration" {
-  rest_api_id             = aws_api_gateway_rest_api.todo_api.id
-  resource_id             = aws_api_gateway_resource.todo_id_resource.id
-  http_method             = aws_api_gateway_method.options_todo_id_method.http_method
-  type                    = "MOCK"
+  rest_api_id = aws_api_gateway_rest_api.todo_api.id
+  resource_id = aws_api_gateway_resource.todo_id_resource.id
+  http_method = aws_api_gateway_method.options_todo_id_method.http_method
+  type        = "MOCK"
   request_templates = {
     "application/json" = "{}"
   }
@@ -283,7 +283,7 @@ resource "aws_lambda_permission" "apigw_lambda_permission" {
 output "api_gateway_endpoint" {
   description = "The base URL for the API Gateway endpoint, including the stage."
   # Using aws_api_gateway_stage.invoke_url directly for cleaner output
-  value       = "${aws_api_gateway_stage.todo_api_stage.invoke_url}/todos"
+  value = "${aws_api_gateway_stage.todo_api_stage.invoke_url}/todos"
 }
 
 

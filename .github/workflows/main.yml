@@ -1,0 +1,78 @@
+name: CI/CD Checks
+
+on:
+  push:
+    branches:
+      - main # Trigger on pushes to the main branch
+      - develop # Trigger on pushes to the develop branch
+  pull_request:
+    branches:
+      - main # Trigger on pull requests targeting the main branch
+      - develop # Trigger on pull requests targeting the develop branch
+
+jobs:
+  build-and-lint:
+    runs-on: ubuntu-latest # Use a fresh Ubuntu environment for each run
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4 # Action to check out your repository code
+
+      - name: Set up Python
+        uses: actions/setup-python@v5 # Action to set up Python environment
+        with:
+          python-version: '3.10' # Specify Python version, matching your Lambda runtime
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip # Upgrade pip
+          pip install flake8 # Install Flake8 for linting
+          pip install -r lambda_app/requirements.txt # Install your project-specific Python dependencies
+
+      - name: Lint Python code with Flake8
+        run: |
+          flake8 lambda_app/ --count --select=E9,F63,F7,F82 --show-source --statistics # Basic Flake8 check
+          flake8 lambda_app/ --count --exit-zero --max-complexity=10 --max-line-length=120 --statistics # Comprehensive Flake8 check
+
+      - name: Run Python Unit Tests (Placeholder)
+        # If you had unit tests (e.g., in `lambda_app/test_lambda_function.py`),
+        # you would run them here. Example using `pytest`:
+        # run: |
+        #   pip install pytest
+        #   pytest lambda_app/
+        run: echo "No Python unit tests configured. Add your tests here!"
+
+
+  terraform-checks:
+    runs-on: ubuntu-latest # Run Terraform checks on a separate job
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        # Use the official HashiCorp Terraform setup action
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.x.x # Or a specific version like '1.5.7'
+
+      - name: Terraform Format
+        id: fmt
+        # Navigate to your terraform directory and run fmt check
+        run: terraform -chdir=terraform fmt -check
+        continue-on-error: true # Allow this step to fail but continue the workflow to show errors
+
+      - name: Terraform Init
+        id: init
+        # Navigate to your terraform directory and initialize
+        run: terraform -chdir=terraform init
+
+      - name: Terraform Validate
+        id: validate
+        # Navigate to your terraform directory and validate the configuration
+        run: terraform -chdir=terraform validate -json # -json output for better parsing in logs
+
+      - name: Check Terraform Format Results
+        if: steps.fmt.outputs.stdout != ''
+        run: |
+          echo "Terraform formatting issues detected. Please run 'terraform fmt' locally."
+          exit 1 # Fail the job if formatting issues are found
+

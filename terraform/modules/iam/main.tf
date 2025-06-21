@@ -43,7 +43,7 @@ resource "aws_iam_role_policy" "lambda_dynamodb_policy" {
           "logs:CreateLogStream",
           "logs:PutLogEvents"
         ],
-        Effect   = "Allow",
+        Effect = "Allow",
         # Use the passed aws_account_id variable for the log group ARN
         Resource = "arn:aws:logs:${var.aws_region}:${var.aws_account_id}:log-group:/aws/lambda/${var.project_name}-*:*"
       }
@@ -87,8 +87,8 @@ resource "aws_iam_role_policy" "cognito_auth_policy" {
     Version = "2012-10-17",
     Statement = [
       {
-        Effect   = "Allow",
-        Action   = [
+        Effect = "Allow",
+        Action = [
           "mobileanalytics:PutEvents",
           "cognito-sync:*"
         ],
@@ -135,8 +135,8 @@ resource "aws_iam_role_policy" "cognito_unauth_policy" {
     Version = "2012-10-17",
     Statement = [
       {
-        Effect   = "Allow",
-        Action   = [
+        Effect = "Allow",
+        Action = [
           "mobileanalytics:PutEvents",
           "cognito-sync:*"
         ],

@@ -69,16 +69,16 @@ resource "aws_api_gateway_integration" "get_all_todos_integration" {
 
 # OPTIONS /todos (CORS Preflight)
 resource "aws_api_gateway_method" "options_todos_method" {
-  rest_api_id   = aws_apigateway_rest_api.todo_api.id
-  resource_id   = aws_apigateway_resource.todos_resource.id
+  rest_api_id   = aws_api_gateway_rest_api.todo_api.id
+  resource_id   = aws_api_gateway_resource.todos_resource.id
   http_method   = "OPTIONS"
   authorization = "NONE" # OPTIONS requests do not require authorization
 }
 
 resource "aws_api_gateway_integration" "options_todos_integration" {
-  rest_api_id             = aws_apigateway_rest_api.todo_api.id
-  resource_id             = aws_apigateway_resource.todos_resource.id
-  http_method             = aws_apigateway_method.options_todos_method.http_method
+  rest_api_id             = aws_api_gateway_rest_api.todo_api.id
+  resource_id             = aws_api_gateway_resource.todos_resource.id
+  http_method             = aws_api_gateway_method.options_todos_method.http_method
   type                    = "MOCK" # Use MOCK integration for OPTIONS
   request_templates = {
     "application/json" = "{}"
@@ -86,9 +86,9 @@ resource "aws_api_gateway_integration" "options_todos_integration" {
 }
 
 resource "aws_api_gateway_method_response" "options_todos_response_200" {
-  rest_api_id = aws_apigateway_rest_api.todo_api.id
-  resource_id = aws_apigateway_resource.todos_resource.id
-  http_method = aws_apigateway_method.options_todos_method.http_method
+  rest_api_id = aws_api_gateway_rest_api.todo_api.id
+  resource_id = aws_api_gateway_resource.todos_resource.id
+  http_method = aws_api_gateway_method.options_todos_method.http_method
   status_code = "200"
 
   response_models = {
@@ -102,10 +102,10 @@ resource "aws_api_gateway_method_response" "options_todos_response_200" {
 }
 
 resource "aws_api_gateway_integration_response" "options_todos_integration_response" {
-  rest_api_id = aws_apigateway_rest_api.todo_api.id
-  resource_id = aws_apigateway_resource.todos_resource.id
-  http_method = aws_apigateway_method.options_todos_method.http_method
-  status_code = aws_apigateway_method_response.options_todos_response_200.status_code
+  rest_api_id = aws_api_gateway_rest_api.todo_api.id
+  resource_id = aws_api_gateway_resource.todos_resource.id
+  http_method = aws_api_gateway_method.options_todos_method.http_method
+  status_code = aws_api_gateway_method_response.options_todos_response_200.status_code
 
   response_templates = {
     "application/json" = ""
@@ -123,20 +123,20 @@ resource "aws_api_gateway_integration_response" "options_todos_integration_respo
 
 # GET /todos/{id} (Get Todo by ID)
 resource "aws_api_gateway_method" "get_todo_by_id_method" {
-  rest_api_id   = aws_apigateway_rest_api.todo_api.id
-  resource_id   = aws_apigateway_resource.todo_id_resource.id
+  rest_api_id   = aws_api_gateway_rest_api.todo_api.id
+  resource_id   = aws_api_gateway_resource.todo_id_resource.id
   http_method   = "GET"
   authorization = "COGNITO_USER_POOLS"
-  authorizer_id = aws_apigateway_authorizer.cognito_authorizer.id
+  authorizer_id = aws_api_gateway_authorizer.cognito_authorizer.id
   request_parameters = {
     "method.request.path.id" = true
   }
 }
 
 resource "aws_api_gateway_integration" "get_todo_by_id_integration" {
-  rest_api_id             = aws_apigateway_rest_api.todo_api.id
-  resource_id             = aws_apigateway_resource.todo_id_resource.id
-  http_method             = aws_apigateway_method.get_todo_by_id_method.http_method
+  rest_api_id             = aws_api_gateway_rest_api.todo_api.id
+  resource_id             = aws_api_gateway_resource.todo_id_resource.id
+  http_method             = aws_api_gateway_method.get_todo_by_id_method.http_method
   type                    = "AWS_PROXY"
   integration_http_method = "POST"
   uri                     = var.lambda_invoke_arn
@@ -147,20 +147,20 @@ resource "aws_api_gateway_integration" "get_todo_by_id_integration" {
 
 # PUT /todos/{id} (Update Todo)
 resource "aws_api_gateway_method" "update_todo_method" {
-  rest_api_id   = aws_apigateway_rest_api.todo_api.id
-  resource_id   = aws_apigateway_resource.todo_id_resource.id
+  rest_api_id   = aws_api_gateway_rest_api.todo_api.id
+  resource_id   = aws_api_gateway_resource.todo_id_resource.id
   http_method   = "PUT"
   authorization = "COGNITO_USER_POOLS"
-  authorizer_id = aws_apigateway_authorizer.cognito_authorizer.id
+  authorizer_id = aws_api_gateway_authorizer.cognito_authorizer.id
   request_parameters = {
     "method.request.path.id" = true
   }
 }
 
 resource "aws_api_gateway_integration" "update_todo_integration" {
-  rest_api_id             = aws_apigateway_rest_api.todo_api.id
-  resource_id             = aws_apigateway_resource.todo_id_resource.id
-  http_method             = aws_apigateway_method.update_todo_method.http_method
+  rest_api_id             = aws_api_gateway_rest_api.todo_api.id
+  resource_id             = aws_api_gateway_resource.todo_id_resource.id
+  http_method             = aws_api_gateway_method.update_todo_method.http_method
   type                    = "AWS_PROXY"
   integration_http_method = "POST"
   uri                     = var.lambda_invoke_arn
@@ -171,20 +171,20 @@ resource "aws_api_gateway_integration" "update_todo_integration" {
 
 # DELETE /todos/{id} (Delete Todo)
 resource "aws_api_gateway_method" "delete_todo_method" {
-  rest_api_id   = aws_apigateway_rest_api.todo_api.id
-  resource_id   = aws_apigateway_resource.todo_id_resource.id
+  rest_api_id   = aws_api_gateway_rest_api.todo_api.id
+  resource_id   = aws_api_gateway_resource.todo_id_resource.id
   http_method   = "DELETE"
   authorization = "COGNITO_USER_POOLS"
-  authorizer_id = aws_apigateway_authorizer.cognito_authorizer.id
+  authorizer_id = aws_api_gateway_authorizer.cognito_authorizer.id
   request_parameters = {
     "method.request.path.id" = true
   }
 }
 
 resource "aws_api_gateway_integration" "delete_todo_integration" {
-  rest_api_id             = aws_apigateway_rest_api.todo_api.id
-  resource_id             = aws_apigateway_resource.todo_id_resource.id
-  http_method             = aws_apigateway_method.delete_todo_method.http_method
+  rest_api_id             = aws_api_gateway_rest_api.todo_api.id
+  resource_id             = aws_api_gateway_resource.todo_id_resource.id
+  http_method             = aws_api_gateway_method.delete_todo_method.http_method
   type                    = "AWS_PROXY"
   integration_http_method = "POST"
   uri                     = var.lambda_invoke_arn
@@ -195,16 +195,16 @@ resource "aws_api_gateway_integration" "delete_todo_integration" {
 
 # OPTIONS /todos/{id} (CORS Preflight for specific ID)
 resource "aws_api_gateway_method" "options_todo_id_method" {
-  rest_api_id   = aws_apigateway_rest_api.todo_api.id
-  resource_id   = aws_apigateway_resource.todo_id_resource.id
+  rest_api_id   = aws_api_gateway_rest_api.todo_api.id
+  resource_id   = aws_api_gateway_resource.todo_id_resource.id
   http_method   = "OPTIONS"
   authorization = "NONE"
 }
 
 resource "aws_api_gateway_integration" "options_todo_id_integration" {
-  rest_api_id             = aws_apigateway_rest_api.todo_api.id
-  resource_id             = aws_apigateway_resource.todo_id_resource.id
-  http_method             = aws_apigateway_method.options_todo_id_method.http_method
+  rest_api_id             = aws_api_gateway_rest_api.todo_api.id
+  resource_id             = aws_api_gateway_resource.todo_id_resource.id
+  http_method             = aws_api_gateway_method.options_todo_id_method.http_method
   type                    = "MOCK"
   request_templates = {
     "application/json" = "{}"
@@ -212,9 +212,9 @@ resource "aws_api_gateway_integration" "options_todo_id_integration" {
 }
 
 resource "aws_api_gateway_method_response" "options_todo_id_response_200" {
-  rest_api_id = aws_apigateway_rest_api.todo_api.id
-  resource_id = aws_apigateway_resource.todo_id_resource.id
-  http_method = aws_apigateway_method.options_todo_id_method.http_method
+  rest_api_id = aws_api_gateway_rest_api.todo_api.id
+  resource_id = aws_api_gateway_resource.todo_id_resource.id
+  http_method = aws_api_gateway_method.options_todo_id_method.http_method
   status_code = "200"
 
   response_models = {
@@ -228,10 +228,10 @@ resource "aws_api_gateway_method_response" "options_todo_id_response_200" {
 }
 
 resource "aws_api_gateway_integration_response" "options_todo_id_integration_response" {
-  rest_api_id = aws_apigateway_rest_api.todo_api.id
-  resource_id = aws_apigateway_resource.todo_id_resource.id
-  http_method = aws_apigateway_method.options_todo_id_method.http_method
-  status_code = aws_apigateway_method_response.options_todo_id_response_200.status_code
+  rest_api_id = aws_api_gateway_rest_api.todo_api.id
+  resource_id = aws_api_gateway_resource.todo_id_resource.id
+  http_method = aws_api_gateway_method.options_todo_id_method.http_method
+  status_code = aws_api_gateway_method_response.options_todo_id_response_200.status_code
 
   response_templates = {
     "application/json" = ""
@@ -247,17 +247,17 @@ resource "aws_api_gateway_integration_response" "options_todo_id_integration_res
 
 # API Gateway Deployment
 resource "aws_api_gateway_deployment" "todo_api_deployment" {
-  rest_api_id = aws_apigateway_rest_api.todo_api.id
+  rest_api_id = aws_api_gateway_rest_api.todo_api.id
   # Triggers redeployment when any method or integration changes
   triggers = {
     redeployment = sha1(jsonencode([
-      aws_apigateway_integration.create_todo_integration.id,
-      aws_apigateway_integration.get_all_todos_integration.id,
-      aws_apigateway_integration.get_todo_by_id_integration.id,
-      aws_apigateway_integration.update_todo_integration.id,
-      aws_apigateway_integration.delete_todo_integration.id,
-      aws_apigateway_integration.options_todos_integration.id, # Add CORS integration to trigger redeployment
-      aws_apigateway_integration.options_todo_id_integration.id,
+      aws_api_gateway_integration.create_todo_integration.id,
+      aws_api_gateway_integration.get_all_todos_integration.id,
+      aws_api_gateway_integration.get_todo_by_id_integration.id,
+      aws_api_gateway_integration.update_todo_integration.id,
+      aws_api_gateway_integration.delete_todo_integration.id,
+      aws_api_gateway_integration.options_todos_integration.id, # Add CORS integration to trigger redeployment
+      aws_api_gateway_integration.options_todo_id_integration.id,
     ]))
   }
   lifecycle {
@@ -283,7 +283,7 @@ resource "aws_lambda_permission" "apigw_lambda_permission" {
 }
 
 output "api_gateway_endpoint" {
-  value = "${aws_api_gateway_deployment.todo_api_deployment.invoke_url}/${aws_apigateway_stage.todo_api_stage.stage_name}/todos"
+  value = "${aws_api_gateway_deployment.todo_api_deployment.invoke_url}/${aws_api_gateway_stage.todo_api_stage.stage_name}/todos"
 }
 
 variable "project_name" {

@@ -38,7 +38,7 @@ resource "aws_cognito_user_pool_client" "user_pool_client" {
   name                          = "${var.project_name}-app-client"
   user_pool_id                  = aws_cognito_user_pool.user_pool.id
   generate_secret               = false # Set to true for server-side apps, false for client-side (like a web app)
-  explicit_auth_flows           = ["ADMIN_NO_SRP_AUTH", "USER_PASSWORD_AUTH", "REFRESH_TOKEN_AUTH"] # Common flows
+  explicit_auth_flows           = ["ADMIN_NO_SRP_AUTH", "USER_PASSWORD_AUTH", "ALLOW_REFRESH_TOKEN_AUTH"] # Common flows
 
   # Callback URLs are required if using hosted UI or OAuth flows
   # Add your frontend application's URL here for successful authentication redirects

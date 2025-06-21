@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - main # Trigger on pushes to the main branch
+      - develop # Trigger on pushes to the develop branch
   pull_request:
     branches:
       - main # Trigger on pull requests targeting the main branch
+      - develop # Trigger on pull requests targeting the develop branch
 
 jobs:
   build-and-lint:

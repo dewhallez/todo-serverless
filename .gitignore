@@ -1,0 +1,47 @@
+/todoapp
+.terraform
+# Local .terraform directory
+.terraform.lock.hcl
+# Local .terraform directory
+# Ignore all .tfstate files
+*.tfstate
+# Ignore all .tfstate backup files
+*.tfstate.backup
+# Ignore crash log files
+crash.log
+# Ignore override files
+override.tf
+override.tf.json
+# Ignore override files in subdirectories
+**/override.tf
+**/override.tf.json
+# Ignore .tfvars files
+*.tfvars
+# Ignore .tfvars files in subdirectories
+**/*.tfvars
+# Ignore .tfvars.json files
+*.tfvars.json
+# Ignore .tfvars.json files in subdirectories
+**/*.tfvars.json
+# Ignore CLI configuration files
+.terraformrc
+terraform.rc
+# Ignore provider binaries
+# This is a catch-all for provider binaries that may be downloaded
+provider.tf
+# Ignore local Terraform state files
+terraform.tfstate
+# Ignore local Terraform state backup files
+terraform.tfstate.backup
+# Ignore local Terraform plan files
+*.tfplan
+# Ignore local Terraform plan files in subdirectories
+**/*.tfplan
+# Ignore local Terraform plan files with specific names
+plan.tfplan
+# Ignore local Terraform plan files with specific names in subdirectories
+**/plan.tfplan
+# Ignore local Terraform plan files with specific names
+plan.json   
+.terraform.tfstate.lock.info    
+# Ignore local Terraform plan files with specific names in subdirectories               

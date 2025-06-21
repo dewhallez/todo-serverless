@@ -20,7 +20,7 @@ variable "project_name" {
 variable "dynamodb_table_name" {
   description = "The name of the DynamoDB table."
   type        = string
-  default     = "MyServerlessTodoTableTerraform" # Changed name to avoid conflict with SAM
+  default     = "MyServerlessTodoTable" # Changed name to avoid conflict with SAM
 }
 
 variable "lambda_handler" {
@@ -32,7 +32,7 @@ variable "lambda_handler" {
 variable "lambda_runtime" {
   description = "The runtime environment for the Lambda function (e.g., python3.9)."
   type        = string
-  default     = "python3.9"
+  default     = "python3.12" # Updated to the latest Python version
 }
 
 variable "lambda_timeout" {

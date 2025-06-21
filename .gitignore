@@ -56,3 +56,4 @@ plan.json
 .env
 .venv  
 # Ignore Python virtual environment directories
+

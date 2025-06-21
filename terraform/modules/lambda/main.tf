@@ -23,9 +23,9 @@ resource "aws_lambda_function" "todo_function" {
     }
   }
 
-  depends_on = [
-    aws_cloudwatch_log_group.todo_lambda_log_group # Ensure log group exists before Lambda
-  ]
+  #depends_on = [
+  #  aws_cloudwatch_log_group.todo_lambda_log_group # Ensure log group exists before Lambda
+ # ]
 }
 
 resource "aws_cloudwatch_log_group" "todo_lambda_log_group" {

@@ -38,12 +38,12 @@ module "lambda_function" {
   lambda_role_arn = module.lambda_iam.lambda_role_arn # Pass the IAM role ARN to the Lambda module
   dynamodb_table_name = var.dynamodb_table_name # Pass the DynamoDB table name as an environment variable
   lambda_timeout = var.lambda_timeout # Pass the Lambda timeout
-  lambda_memory_size = var.lambda_memory_size # Pass the Lambda memory size
-  lambda_invoke_arn = var.lambda_invoke_arn # Provide the Lambda invoke ARN
-  aws_account_id = var.aws_account_id # Provide the AWS account ID
-  lambda_function_arn = var.lambda_function_arn # Provide the Lambda function ARN
-  lambda_function_name = var.lambda_function_name # Provide the Lambda function name
-  lambda_function_environment_variables = var.lambda_function_environment_variables # Provide environment variables as a map
+  #lambda_memory_size = var.lambda_memory_size # Pass the Lambda memory size
+  #lambda_invoke_arn = var.lambda_invoke_arn # Provide the Lambda invoke ARN
+  #aws_account_id = var.aws_account_id # Provide the AWS account ID
+  # lambda_function_arn = var.lambda_function_arn # Provide the Lambda function ARN
+  #lambda_function_name = var.lambda_function_name # Provide the Lambda function name
+  #lambda_function_environment_variables = var.lambda_function_environment_variables # Provide environment variables as a map
 }
 # New Cognito module
 module "cognito" {

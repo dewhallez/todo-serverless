@@ -2,7 +2,7 @@
 
 resource "aws_api_gateway_rest_api" "todo_api" {
   name        = "${var.project_name}-api"
-  description = "API Gateway for the serverless To-Do application with Cognito authentication"
+  description = "API Gateway for the serverless To-Do application"
 }
 
 resource "aws_api_gateway_resource" "todos_resource" {
@@ -26,17 +26,15 @@ resource "aws_api_gateway_authorizer" "cognito_authorizer" {
   identity_source        = "method.request.header.Authorization" # Token is in Authorization header
 }
 
-# --- Common Method & Integration for POST, GET /todos ---
-# We'll define a reusable method/integration block for the /todos path that uses the authorizer.
-# This makes it cleaner for multiple methods on the same resource.
 
-# Define methods with Authorizer
+# --- Methods and Integrations for /todos ---
+
 # POST /todos (Create Todo)
 resource "aws_api_gateway_method" "create_todo_method" {
   rest_api_id   = aws_api_gateway_rest_api.todo_api.id
   resource_id   = aws_api_gateway_resource.todos_resource.id
   http_method   = "POST"
-  authorization = "COGNITO_USER_POOLS"
+  authorization = "COGNITO_USER_POOLS" # Use Cognito Authorizer
   authorizer_id = aws_api_gateway_authorizer.cognito_authorizer.id
 }
 
@@ -45,7 +43,7 @@ resource "aws_api_gateway_integration" "create_todo_integration" {
   resource_id             = aws_api_gateway_resource.todos_resource.id
   http_method             = aws_api_gateway_method.create_todo_method.http_method
   type                    = "AWS_PROXY"
-  integration_http_method = "POST"
+  integration_http_method = "POST" # Lambda Proxy integration always uses POST
   uri                     = var.lambda_invoke_arn
 }
 
@@ -54,7 +52,7 @@ resource "aws_api_gateway_method" "get_all_todos_method" {
   rest_api_id   = aws_api_gateway_rest_api.todo_api.id
   resource_id   = aws_api_gateway_resource.todos_resource.id
   http_method   = "GET"
-  authorization = "COGNITO_USER_POOLS"
+  authorization = "COGNITO_USER_POOLS" # Use Cognito Authorizer
   authorizer_id = aws_api_gateway_authorizer.cognito_authorizer.id
 }
 
@@ -126,7 +124,7 @@ resource "aws_api_gateway_method" "get_todo_by_id_method" {
   rest_api_id   = aws_api_gateway_rest_api.todo_api.id
   resource_id   = aws_api_gateway_resource.todo_id_resource.id
   http_method   = "GET"
-  authorization = "COGNITO_USER_POOLS"
+  authorization = "COGNITO_USER_POOLS" # Use Cognito Authorizer
   authorizer_id = aws_api_gateway_authorizer.cognito_authorizer.id
   request_parameters = {
     "method.request.path.id" = true
@@ -150,7 +148,7 @@ resource "aws_api_gateway_method" "update_todo_method" {
   rest_api_id   = aws_api_gateway_rest_api.todo_api.id
   resource_id   = aws_api_gateway_resource.todo_id_resource.id
   http_method   = "PUT"
-  authorization = "COGNITO_USER_POOLS"
+  authorization = "COGNITO_USER_POOLS" # Use Cognito Authorizer
   authorizer_id = aws_api_gateway_authorizer.cognito_authorizer.id
   request_parameters = {
     "method.request.path.id" = true
@@ -174,7 +172,7 @@ resource "aws_api_gateway_method" "delete_todo_method" {
   rest_api_id   = aws_api_gateway_rest_api.todo_api.id
   resource_id   = aws_api_gateway_resource.todo_id_resource.id
   http_method   = "DELETE"
-  authorization = "COGNITO_USER_POOLS"
+  authorization = "COGNITO_USER_POOLS" # Use Cognito Authorizer
   authorizer_id = aws_api_gateway_authorizer.cognito_authorizer.id
   request_parameters = {
     "method.request.path.id" = true
@@ -283,9 +281,13 @@ resource "aws_lambda_permission" "apigw_lambda_permission" {
 }
 
 output "api_gateway_endpoint" {
-  value = "${aws_api_gateway_deployment.todo_api_deployment.invoke_url}/${aws_api_gateway_stage.todo_api_stage.stage_name}/todos"
+  description = "The base URL for the API Gateway endpoint, including the stage."
+  # Using aws_api_gateway_stage.invoke_url directly for cleaner output
+  value       = "${aws_api_gateway_stage.todo_api_stage.invoke_url}/todos"
 }
 
+
+# Input variables for this module
 variable "project_name" {
   description = "The name of the project."
   type        = string

@@ -53,4 +53,7 @@ plan.json
 # Ignore JetBrains IDEs specific files
 .idea/
 # Ignore local environment files
-.env              
+.env
+.venv  
+# Ignore Python virtual environment directories
+

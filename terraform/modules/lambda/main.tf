@@ -15,7 +15,7 @@ resource "aws_lambda_function" "todo_function" {
   filename         = data.archive_file.lambda_zip.output_path
   source_code_hash = data.archive_file.lambda_zip.output_base64sha256 # Trigger redeploy on code changes
   timeout          = var.lambda_timeout
-  memory_size      = var.lambda_memory_size
+  memory_size      = var.lambda_function_memory_size
 
   environment {
     variables = {
@@ -23,9 +23,10 @@ resource "aws_lambda_function" "todo_function" {
     }
   }
 
-  #depends_on = [
-  #  aws_cloudwatch_log_group.todo_lambda_log_group # Ensure log group exists before Lambda
- # ]
+# depends_on = [
+#  aws_cloudwatch_log_group.todo_lambda_log_group # Ensure log group exists before Lambda
+# ]
+
 }
 
 resource "aws_cloudwatch_log_group" "todo_lambda_log_group" {
@@ -58,71 +59,26 @@ variable "lambda_handler" {
 variable "lambda_runtime" {
   description = "The runtime for the Lambda function"
   type        = string
-  default     = "python3.9" # Default to Python 3.9
-}
-variable "lambda_role_arn" {
-  description = "The ARN of the IAM role for the Lambda function"
-  type        = string
-}
-variable "lambda_timeout" {
-  description = "The timeout for the Lambda function in seconds"
-  type        = number
-  default     = 30 # Default to 30 seconds
-}
-variable "lambda_memory_size" {
-  description = "The memory size for the Lambda function in MB"
-  type        = number
-  default     = 128 # Default to 128 MB
-}
-variable "dynamodb_table_name" {
-  description = "The name of the DynamoDB table to be accessed by the Lambda function"
-  type        = string
-}
-variable "aws_region" {
-  description = "The AWS region where resources will be created"
-  type        = string
-  default     = "us-east-1" # Default to us-east-1
-}
-data "aws_caller_identity" "current" {} # Used to get the AWS account ID
-variable "aws_account_id" {
-  description = "The AWS account ID"
-  type        = string
-  #default     = data.aws_caller_identity.current.account_id
-}
-variable "lambda_zip_path" {
-  description = "The path to the Lambda function ZIP file"
-  type        = string
-  default     = "lambda_package.zip" # Default to the output path of the archive_file data source
-}
-variable "lambda_function_name" {
-  description = "The name of the Lambda function"
-  type        = string
-  #default     = "${var.project_name}-function" # Default to project name with -function suffix
-}
-variable "lambda_invoke_arn" {
-  description = "The ARN of the Lambda function to be invoked"
-  type        = string
-  #default     = aws_lambda_function.todo_function.invoke_arn # Default to the invoke ARN of the created Lambda function
-}
-variable "lambda_function_arn" {
-  description = "The ARN of the Lambda function"
-  type        = string
-  #default     = aws_lambda_function.todo_function.arn # Default to the ARN of the created Lambda function
+  default     = "python3.10" # Default to Python 3.10
 }
 variable "lambda_function_memory_size" {
   description = "The memory size for the Lambda function in MB"
   type        = number
   default     = 128 # Default to 128 MB
 }
-variable "lambda_function_timeout" {
+
+variable "lambda_timeout" {
   description = "The timeout for the Lambda function in seconds"
   type        = number
-  default     = 30 # Default to 30 seconds
+  default     = 10 # Default to 10 seconds
 }
-variable "lambda_function_environment_variables" {
-  description = "Environment variables for the Lambda function"
-  type        = map(string)
-  #default     = {
-    #TABLE_NAME = var.dynamodb_table_name
-  } # Default to the DynamoDB table name
 
+variable "lambda_role_arn" {
+  description = "The ARN of the IAM role for the Lambda function"
+  type        = string
+}
+
+variable "dynamodb_table_name" {
+  description = "The name of the DynamoDB table used by the Lambda function"
+  type        = string
+}

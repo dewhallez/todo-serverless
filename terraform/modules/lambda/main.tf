@@ -47,6 +47,10 @@ output "lambda_function_name" {
   value = aws_lambda_function.todo_function.function_name
 }
 
+output "lambda_function_arn" {
+  value = aws_lambda_function.todo_function.arn
+}
+
 variable "project_name" {
   description = "The name of the project"
   type        = string

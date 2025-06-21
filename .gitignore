@@ -45,3 +45,12 @@ plan.tfplan
 plan.json   
 .terraform.tfstate.lock.info    
 # Ignore local Terraform plan files with specific names in subdirectories               
+.idea
+# Ignore IDE specific files
+.idea/
+# Ignore VS Code specific files
+.vscode/
+# Ignore JetBrains IDEs specific files
+.idea/
+# Ignore local environment files
+.env              

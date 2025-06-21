@@ -531,13 +531,3 @@ def delete_todo(event):
             'body': json.dumps({'message': 'Could not delete todo', 'error': str(e)})
         }
 
-# Note: Ensure that the Lambda function has the necessary IAM permissions to access DynamoDB.
-# The function should have permissions for:
-# - dynamodb:PutItem
-# - dynamodb:GetItem
-# - dynamodb:UpdateItem
-# - dynamodb:DeleteItem
-# - dynamodb:Scan (if using scan for get_all_todos)
-# - dynamodb:Query (if using query for get_all_todos with GSI)
-
-

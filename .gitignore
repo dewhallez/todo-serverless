@@ -54,3 +54,5 @@ plan.json
 .idea/
 # Ignore local environment files
 .env
+.venv  
+# Ignore Python virtual environment directories

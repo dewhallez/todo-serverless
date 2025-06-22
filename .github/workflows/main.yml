@@ -26,12 +26,12 @@ jobs:
         run: |
           python -m pip install --upgrade pip # Upgrade pip
           pip install flake8 # Install Flake8 for linting
-          pip install -r lambda_app/requirements.txt # Install your project-specific Python dependencies
+          pip install -r backend/requirements.txt # Install your project-specific Python dependencies
 
       - name: Lint Python code with Flake8
         run: |
-          flake8 lambda_app/ --count --select=E9,F63,F7,F82 --show-source --statistics # Basic Flake8 check
-          flake8 lambda_app/ --count --exit-zero --max-complexity=10 --max-line-length=120 --statistics # Comprehensive Flake8 check
+          flake8 backend/ --count --select=E9,F63,F7,F82 --show-source --statistics # Basic Flake8 check
+          flake8 backend/ --count --exit-zero --max-complexity=10 --max-line-length=120 --statistics # Comprehensive Flake8 check
 
       - name: Run Python Unit Tests (Placeholder)
         # If you had unit tests (e.g., in `lambda_app/test_lambda_function.py`),

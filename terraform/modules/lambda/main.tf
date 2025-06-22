@@ -2,7 +2,7 @@
 
 data "archive_file" "lambda_zip" {
   type        = "zip"
-  source_dir  = "../../lambda_app/"                                                 # This path assumes lambda_function.py and requirements.txt are in the parent directory of this module
+  source_dir  = "../../backend/"                                                 # This path assumes lambda_function.py and requirements.txt are in the parent directory of this module
   output_path = "lambda_package.zip"                                                # Output ZIP file name
   excludes    = ["terraform", ".terraform", "*.tf", "*.tfvars", "*.zip", "modules"] # Exclude Terraform files
 }

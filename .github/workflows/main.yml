@@ -36,7 +36,7 @@ jobs:
       - name: Run Python Unit Tests
         run: |
           pip install pytest
-          pytest || echo "No Python unit tests configured. Add your tests here!"
+          pytest 
 
 
   terraform-checks:

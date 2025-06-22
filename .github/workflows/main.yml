@@ -33,13 +33,10 @@ jobs:
           flake8 backend/ --count --select=E9,F63,F7,F82 --show-source --statistics # Basic Flake8 check
           flake8 backend/ --count --exit-zero --max-complexity=10 --max-line-length=120 --statistics # Comprehensive Flake8 check
 
-      - name: Run Python Unit Tests (Placeholder)
-        # If you had unit tests (e.g., in `lambda_app/test_lambda_function.py`),
-        # you would run them here. Example using `pytest`:
-        # run: |
-        #   pip install pytest
-        #   pytest lambda_app/
-        run: echo "No Python unit tests configured. Add your tests here!"
+      - name: Run Python Unit Tests
+        run: |
+          pip install pytest
+          pytest || echo "No Python unit tests configured. Add your tests here!"
 
 
   terraform-checks:

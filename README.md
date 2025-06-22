@@ -5,7 +5,7 @@ A simple AWS-powered Todo application. This project demonstrates how to build, d
 - **Features:**  
     - Add, update, and delete todo items  
     - Serverless backend  
-    - Django frontend
+    - Javascript frontend
     - Scalable and cost-effective
 
 ## Getting Started

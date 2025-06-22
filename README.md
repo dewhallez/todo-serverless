@@ -4,9 +4,11 @@ A simple AWS-powered Todo application. This project demonstrates how to build, d
 
 - **Features:**  
     - Add, update, and delete todo items  
-    - Serverless backend  
+    - Serverless backend (Python)
     - Javascript frontend
     - Scalable and cost-effective
+    - User authentication
+    - terraform for infrastructures
 
 ## Getting Started
 

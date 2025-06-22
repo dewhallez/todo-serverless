@@ -76,3 +76,25 @@ jobs:
           echo "Terraform formatting issues detected. Please run 'terraform fmt' locally."
           exit 1 # Fail the job if formatting issues are found
 
+  frontend-checks:
+    runs-on: ubuntu-latest # Run frontend checks on a separate job
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4 # Check out the repository code
+
+      - name: Check Frontend Files Existence
+        run: |
+          # Verify essential frontend files are present
+          if [ ! -f "frontend/index.html" ]; then
+            echo "Error: frontend/index.html not found!"
+            exit 1
+          fi
+          if [ ! -f "frontend/style.css" ]; then
+            echo "Error: frontend/style.css not found!"
+            exit 1
+          fi
+          if [ ! -f "frontend/script.js" ]; then
+            echo "Error: frontend/script.js not found!"
+            exit 1
+          fi
+          echo "All essential frontend files are present."

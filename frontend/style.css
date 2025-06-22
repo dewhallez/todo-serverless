@@ -1,0 +1,10 @@
+/* frontend/style.css */
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Ensure inputs and buttons have rounded corners as per instructions */
+input, button, .rounded-lg {
+    border-radius: 0.5rem; /* Equivalent to Tailwind's rounded-lg */
+}

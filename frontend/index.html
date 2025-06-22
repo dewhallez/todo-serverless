@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My To-Do App</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- AWS Amplify CDN -->
+    <script src="https://unpkg.com/aws-amplify@5.0.1/dist/aws-amplify.min.js"></script>
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="min-h-screen bg-gray-100 flex flex-col items-center justify-center py-10 px-4 sm:px-6 lg:px-8">
+
+    <div class="max-w-md w-full bg-white p-8 rounded-xl shadow-lg space-y-6">
+        <h1 class="text-3xl font-extrabold text-center text-gray-900 rounded-lg p-2 bg-blue-100">
+            My To-Do App
+        </h1>
+
+        <div id="message-box" class="hidden p-3 text-sm text-center font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded-lg shadow-sm">
+            <!-- Messages will be displayed here -->
+        </div>
+
+        <div id="auth-section" class="space-y-4">
+            <!-- Authentication forms will be rendered here by JavaScript -->
+            <div id="sign-up-form">
+                <input type="email" id="signup-email" placeholder="Email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 mb-2">
+                <input type="password" id="signup-password" placeholder="Password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 mb-4">
+                <button id="signup-button" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150 ease-in-out shadow-md">
+                    Sign Up
+                </button>
+                <p class="text-center text-sm text-gray-600 mt-2">
+                    Already have an account?
+                    <button id="show-signin" class="font-medium text-blue-600 hover:text-blue-500">
+                        Sign In
+                    </button>
+                </p>
+            </div>
+
+            <div id="confirm-signup-form" class="hidden">
+                <p class="text-center text-sm text-gray-600 mb-2">
+                    Please enter the verification code sent to <span id="confirm-email-display" class="font-semibold"></span>.
+                </p>
+                <input type="text" id="confirm-code" placeholder="Verification Code" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 mb-4">
+                <button id="confirm-signup-button" class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-150 ease-in-out shadow-md">
+                    Confirm Sign Up
+                </button>
+            </div>
+
+            <div id="sign-in-form" class="hidden">
+                <input type="email" id="signin-email" placeholder="Email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 mb-2">
+                <input type="password" id="signin-password" placeholder="Password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 mb-4">
+                <button id="signin-button" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150 ease-in-out shadow-md">
+                    Sign In
+                </button>
+                <p class="text-center text-sm text-gray-600 mt-2">
+                    Don't have an account?
+                    <button id="show-signup" class="font-medium text-blue-600 hover:text-blue-500">
+                        Sign Up
+                    </button>
+                </p>
+            </div>
+        </div>
+
+        <div id="app-section" class="hidden space-y-6">
+            <div class="flex items-center justify-between">
+                <p class="text-lg text-gray-800 font-semibold">
+                    Welcome, <span id="username-display"></span>!
+                </p>
+                <button id="signout-button" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition duration-150 ease-in-out shadow-md">
+                    Sign Out
+                </button>
+            </div>
+
+            <div class="flex space-x-2">
+                <input type="text" id="new-todo-task" placeholder="Add a new To-Do" class="flex-grow px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                <button id="add-todo-button" class="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus->ring-blue-500 focus:ring-offset-2 transition duration-150 ease-in-out shadow-md">
+                    Add
+                </button>
+            </div>
+
+            <div id="todo-list-container">
+                <!-- To-Do items will be rendered here by JavaScript -->
+                <p id="no-todos-message" class="text-center text-gray-500">No To-Dos yet. Add one!</p>
+                <ul id="todo-list" class="space-y-3"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pass backend configuration variables to JavaScript -->
+    <script>
+        // REPLACE THESE PLACEHOLDERS WITH YOUR ACTUAL TERRAFORM OUTPUTS
+        const API_GATEWAY_URL = 'YOUR_API_GATEWAY_ENDPOINT';
+        const USER_POOL_ID = 'YOUR_COGNITO_USER_POOL_ID';
+        const USER_POOL_CLIENT_ID = 'YOUR_COGNITO_USER_POOL_CLIENT_ID';
+        const AWS_REGION = 'us-east-1'; // Your AWS region
+    </script>
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>

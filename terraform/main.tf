@@ -50,3 +50,8 @@ module "cognito" {
   source       = "./modules/cognito" # Path to the new Cognito module
   project_name = var.project_name    # Use the project name
 }
+# New S3 module
+module "s3_frontend" {
+  source       = "./modules/s3_frontend" # Path to the new S3 frontend module
+  project_name = var.project_name        # Pass project name to S3 frontend module
+}

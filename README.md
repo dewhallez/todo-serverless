@@ -13,7 +13,7 @@ A simple AWS-powered Todo application. This project demonstrates how to build, d
 ## Getting Started
 
 1. Clone the repository.
-2. Follow the setup instructions in the `/docs` folder.
+2. Follow the setup instructions in the `/docs` folder. (To be added)
 3. Deploy using AWS CLI or your preferred deployment tool.
 
 ## License

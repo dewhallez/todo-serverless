@@ -4,7 +4,7 @@
 [![AWS](https://img.shields.io/badge/AWS-Serverless-orange)](https://aws.amazon.com/serverless/)
 [![Coverage](https://img.shields.io/badge/coverage-passing-brightgreen)](#)
 
-# TodoApp
+# Todo App
 
 A simple AWS-powered Todo application. This project demonstrates how to build, deploy, and manage a serverless todo app using AWS services.
 

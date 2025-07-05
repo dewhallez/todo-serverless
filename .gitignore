@@ -57,3 +57,9 @@ plan.json
 .venv  
 # Ignore Python virtual environment directories
 venv
+__pycache__
+# Ignore Python bytecode files
+*.pyc
+# Ignore Python cache directories
+__pycache__/
+.pytest_cache/

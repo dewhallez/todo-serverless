@@ -194,6 +194,14 @@ def get_todo_by_id(event):
     Retrieves a single To-Do item by its ID.
     Verifies ownership using userId.
     """
+    path_params = event.get("pathParameters") or {}
+    todo_id = path_params.get("id")
+    if not todo_id:
+        return {
+            "statusCode": 400,
+            "headers": {"Content-Type": "application/json", "Access-Control-Allow-Origin": "*"},
+            "body": json.dumps({"message": "Missing todo id in path parameters"})
+        }
     user_id = event.get('userId')
     todo_id = event['pathParameters']['id']
     logger.info(f"Get To-Do {todo_id} for User: {user_id}")
@@ -432,6 +440,14 @@ def delete_todo(event):
     Deletes a To-Do item by its ID.
     Verifies ownership using userId.
     """
+    path_params = event.get("pathParameters") or {}
+    todo_id = path_params.get("id")
+    if not todo_id:
+        return {
+            "statusCode": 400,
+            "headers": {"Content-Type": "application/json", "Access-Control-Allow-Origin": "*"},
+            "body": json.dumps({"message": "Missing todo id in path parameters"})
+        }
     user_id = event.get('userId')
     todo_id = event['pathParameters']['id']
     logger.info(f"Delete To-Do {todo_id} for User: {user_id}")

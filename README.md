@@ -6,7 +6,7 @@
 
 # TodoApp
 
-AWS-powered Todo application. This project demonstrates how to build, deploy, and manage a serverless todo app using AWS services.
+A simple AWS-powered Todo application. This project demonstrates how to build, deploy, and manage a serverless todo app using AWS services.
 
 ## Features
 
@@ -37,6 +37,36 @@ AWS-powered Todo application. This project demonstrates how to build, deploy, an
       pytest
       ```
 
+3. **Infrastructure Deployment**
+    - Install [Terraform](https://www.terraform.io/downloads.html)
+    - Configure your AWS credentials
+    - Deploy resources:
+      ```sh
+      cd terraform
+      terraform init
+      terraform apply
+      ```
+
+4. **Frontend Setup**
+    - See `/frontend/README.md` for instructions.
+
+## Project Structure
+
+```
+.
+├── backend/      # Python Lambda functions & tests
+├── frontend/     # JavaScript frontend app
+├── terraform/    # Infrastructure as Code
+├── .github/      # GitHub Actions workflows
+└── README.md
+```
+
+## Contributing
+
+Contributions are welcome! Please open issues or submit pull requests.
+
 ## License
 
 MIT License
+
+---

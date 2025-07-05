@@ -1,4 +1,4 @@
-[![Tests](https://github.com/dewhallez/todo-serverless/actions/workflows/python-tests.yml/badge.svg)](https://github.com/dewhallez/todo-serverless/actions)
+[![Tests](https://github.com/dewhallez/todo-serverless/actions/workflows/main.yml/badge.svg)](https://github.com/dewhallez/todo-serverless/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/release/python-311/)
 [![AWS](https://img.shields.io/badge/AWS-Serverless-orange)](https://aws.amazon.com/serverless/)

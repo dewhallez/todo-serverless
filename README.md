@@ -44,6 +44,7 @@ A simple AWS-powered Todo application. This project demonstrates how to build, d
       ```sh
       cd terraform
       terraform init
+      terraform plan
       terraform apply
       ```
 
